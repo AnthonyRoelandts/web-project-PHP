@@ -5,4 +5,5 @@ SetEnv MYSQL_HOST localhost
 SetEnv MYSQL_USER root
 SetEnv MYSQL_PWD pass
 SetEnv MYSQL_DB projetweb
+SetEnv MYSQL_PORT 3306
 ```
