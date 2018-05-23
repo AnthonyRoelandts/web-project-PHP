@@ -1,5 +1,7 @@
 <?php
 include("menu.php");
+include("connection-history/memberConnectionHandling.php");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
@@ -31,8 +33,8 @@ include("menu.php");
 <?php
   if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['password'])) {
   extract($_POST);
-  // on recupére le password de la table qui correspond au login du visiteur
-  $sql = "select password from membre where login='".$login."'";
+  // on recupï¿½re le password de la table qui correspond au login du visiteur
+  $sql = "select id, password from membre where login='".$login."'";
   $req = mysqli_query($db, $sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysqli_error());
 
   $data = mysqli_fetch_assoc($req);
@@ -43,6 +45,9 @@ include("menu.php");
 </div>';
   } else {
     $_SESSION['login'] = $login;
+    $_SESSION['membre_id'] = $data['id'];
+    addConnectionEntryInDatabase($data['id']);
+
     $sql = "select imageProfil from membre where login='".$login."'";
                     $result = $db->query($sql);
     // pas d'image de profil
