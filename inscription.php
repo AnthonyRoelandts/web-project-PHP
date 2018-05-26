@@ -134,13 +134,16 @@ if (ISSET($_POST['inscrire'])) {
         $dateNaissance = $_POST['dateNaissance'];
         $password      = $_POST['password'];
         $mail          = $_POST['email'];
+
+        // hash password
+        $hash  = password_hash($password, PASSWORD_DEFAULT );
         
         $uploaddir  = './uploads/';
         $uploadfile = $uploaddir . basename($_FILES['imageProfil']['name']);
         if (!empty($file_name) && move_uploaded_file($_FILES['imageProfil']['tmp_name'], $uploadfile)) {
-            $sql = "INSERT INTO membre(`nom`, `prenom`, `adresse`, `codePostal`, `dateNaissance`, `login`, `password`, `email`, `imageProfil`) VALUES ('" . $nom . "', '" . $prenom . "', '" . $adresse . "', '" . $codePostal . "', '" . $dateNaissance . "', '" . $login . "', '" . $password . "', '" . $mail . "', '" . $target_dir . $file_name . $extension_upload . "')";
+            $sql = "INSERT INTO membre(`nom`, `prenom`, `adresse`, `codePostal`, `dateNaissance`, `login`, `password`, `email`, `imageProfil`) VALUES ('" . $nom . "', '" . $prenom . "', '" . $adresse . "', '" . $codePostal . "', '" . $dateNaissance . "', '" . $login . "', '" . $hash . "', '" . $mail . "', '" . $target_dir . $file_name . $extension_upload . "')";
         } else {
-            $sql = "INSERT INTO membre(`nom`, `prenom`, `adresse`, `codePostal`, `dateNaissance`, `login`, `password`, `email`) VALUES ('" . $nom . "', '" . $prenom . "', '" . $adresse . "', '" . $codePostal . "', '" . $dateNaissance . "', '" . $login . "', '" . $password . "', '" . $mail . "')";
+            $sql = "INSERT INTO membre(`nom`, `prenom`, `adresse`, `codePostal`, `dateNaissance`, `login`, `password`, `email`) VALUES ('" . $nom . "', '" . $prenom . "', '" . $adresse . "', '" . $codePostal . "', '" . $dateNaissance . "', '" . $login . "', '" . $hash . "', '" . $mail . "')";
         }
         $req = mysqli_query($db, $sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
         //page de redirection

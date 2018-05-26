@@ -41,7 +41,7 @@
 
   $data = mysqli_fetch_assoc($req);
 
-  if($data['password'] != $password) {
+  if(!password_verify($_POST['password'], $data['password'])) {
     echo '<div class="alert alert-dismissable alert-danger">
   <strong>Oh Non !</strong> Mauvais login / password. Merci de recommencer !
 </div>';

@@ -1,0 +1,1 @@
+ALTER TABLE membre MODIFY password varchar(255) NOT NULL
