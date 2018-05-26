@@ -1,6 +1,7 @@
 <?php
 include ("menu.php");
-include ("connection-history/memberConnectionHandling.php")
+include ("connection-history/memberConnectionHandling.php");
+include ("authentification/authentificationUtils.php");
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -12,19 +13,28 @@ include ("connection-history/memberConnectionHandling.php")
     <legend>Accueil</legend>
     <?php
 
-if (isset($_SESSION['login']))
-	{
-	$image = $_SESSION['imageProfil'];
-	echo 'Bienvenue ' . $_SESSION['login'];
-	print '<img src="' . $image . '" alt="texte alternatif" />';
-	}
-
-    if (isset($_SESSION['membre_id']))
+    if (isLogged())
     {
+        $image = $_SESSION['imageProfil'];
+        echo 'Bienvenue ' . $_SESSION['login'];
+        print '<img src="' . $image . '" alt="texte alternatif" />';
+
         echo '<pre>';
         echo 'Nombre de connections aujourd\'hui: ' . getConnectionCountForToday($_SESSION['membre_id']);
         echo '<pre>';
         echo 'Nombre de connections depuis les 7 derniers jours: ' . getConnectionCountForLastWeek($_SESSION['membre_id']);
     }
-?>
+
+    // todo: remove this
+    if(isMemberUser()) {
+        echo '<pre>';
+        echo 'Peon va. Lol!';
+    }
+
+    if(isAdmin())
+    {
+        echo '<pre>';
+        echo 'Vous etes admin. La classe!';
+    }
+    ?>
 </body>

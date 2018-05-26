@@ -34,7 +34,7 @@ include("connection-history/memberConnectionHandling.php");
   if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['password'])) {
   extract($_POST);
   // on recup�re le password de la table qui correspond au login du visiteur
-  $sql = "select id, password from membre where login='".$login."'";
+  $sql = "select id, password, isAdmin from membre where login='".$login."'";
   $req = mysqli_query($db, $sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysqli_error());
 
   $data = mysqli_fetch_assoc($req);
@@ -46,6 +46,7 @@ include("connection-history/memberConnectionHandling.php");
   } else {
     $_SESSION['login'] = $login;
     $_SESSION['membre_id'] = $data['id'];
+    $_SESSION['isAdmin'] = $data['isAdmin'];
     addConnectionEntryInDatabase($data['id']);
 
     $sql = "select imageProfil from membre where login='".$login."'";
