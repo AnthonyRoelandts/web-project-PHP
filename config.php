@@ -7,4 +7,11 @@
  */
 
 define("APP_ROOT", dirname(__FILE__));
+
+function redirectToErrorPage()
+{
+    header('This is not the page you are looking for', true, 404);
+    include(__DIR__ . '/notFound.php');
+}
+
 ?>

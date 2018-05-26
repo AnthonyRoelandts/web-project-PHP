@@ -2,7 +2,7 @@
     include_once(__DIR__ . '/config.php');
 
     include_once (APP_ROOT."/menu.php");
-    include_once (APP_ROOT."/connection-history/memberConnectionHandling.php");
+    include_once(APP_ROOT . "/admin/connection-history/memberConnectionHandling.php");
     include_once (APP_ROOT."/authentification/authentificationUtils.php");
 
 ?>
@@ -20,11 +20,6 @@
         $image = $_SESSION['imageProfil'];
         echo 'Bienvenue ' . $_SESSION['login'];
         print '<img src="' . $image . '" alt="texte alternatif" />';
-
-        echo '<pre>';
-        echo 'Nombre de connections aujourd\'hui: ' . getConnectionCountForToday($_SESSION['membre_id']);
-        echo '<pre>';
-        echo 'Nombre de connections depuis les 7 derniers jours: ' . getConnectionCountForLastWeek($_SESSION['membre_id']);
     }
 
     // todo: remove this

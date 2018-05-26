@@ -2,13 +2,13 @@
 include_once(__DIR__ . '/../config.php');
 
 include_once (APP_ROOT . "/menu.php");
-include_once (APP_ROOT . "/connection-history/memberConnectionHandling.php");
+include_once(APP_ROOT . "/admin/connection-history/memberConnectionHandling.php");
 include_once (APP_ROOT . "/authentification/authentificationUtils.php");
 include_once (APP_ROOT . "/admin/userAdministrationController.php");
 
-if(!isAdmin()) {
-    header('This is not the page you are looking for', true, 404);
-    include(__DIR__ . '/../notFound.php');
+if(!isAdmin())
+{
+    redirectToErrorPage();
     exit();
 }
 
@@ -46,17 +46,22 @@ foreach($members as $element)
         <th>id</th>
         <th>login</th>
         <th>bloqué</th>
-        <th>Voir Profit</th>
+        <th>Voir profit</th>
+        <th>Voir données de connexions</th>
+        <th>Voir achats</th>
     </tr>
     </thead>
     <tbody>
     <?php
     foreach($members as $element)
     {
+        $urlToMemberConnection = 'connection-history/memberConnectionView.php' . '?memberId=' . $element['id'];
         echo '<tr>
 					<td>'.$element['id'].'</td>
 					<td>'.$element['login'].'</td>
-					<td>'. ($element['isBanned'] ? 'oui' : 'non') .'</td>
+					<td>'. ($element['isBanned'] ? 'oui' : 'non') . '</td>
+					<td><a href="">GO</a></td>
+					<td><a href="' . $urlToMemberConnection . '">GO</a></td>
 					<td><a href="">GO</a></td>
 				</tr>';
     }?>

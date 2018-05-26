@@ -1,7 +1,7 @@
 <?php
     include_once(__DIR__ . '/config.php');
 
-    include_once(APP_ROOT."/connection-history/memberConnectionHandling.php");
+    include_once(APP_ROOT . "/admin/connection-history/memberConnectionHandling.php");
     include_once(APP_ROOT."/authentification/authentificationUtils.php");
     session_start();
 ?>

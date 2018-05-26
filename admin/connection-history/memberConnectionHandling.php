@@ -5,9 +5,9 @@
  * Date: 23/05/2018
  * Time: 21:21
  */
-include_once(__DIR__ . '/../config.php');
+include_once(__DIR__ . '/../../config.php');
 
-include_once (APP_ROOT."/db.php");
+include_once(APP_ROOT . "/db.php");
 
 function addConnectionEntryInDatabase($membreId) {
     try
