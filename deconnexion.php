@@ -1,5 +1,7 @@
 <?php
-include("connection-history/memberConnectionHandling.php");
+include_once ("config.php");
+
+include_once (APP_ROOT."/connection-history/memberConnectionHandling.php");
 
 	 session_start();
 	 setEndToConnection();

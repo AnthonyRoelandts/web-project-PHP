@@ -1,6 +1,8 @@
 <?php
-    include_once("connection-history/memberConnectionHandling.php");
-    include_once("authentification/authentificationUtils.php");
+    include_once(__DIR__ . '/config.php');
+
+    include_once(APP_ROOT."/connection-history/memberConnectionHandling.php");
+    include_once(APP_ROOT."/authentification/authentificationUtils.php");
     session_start();
 ?>
 <body>
@@ -26,7 +28,7 @@
             <?php
             if (isAdmin()) {
             ?>
-            <li><a href="admin/userAdministration.php"> Gestion utilisateur </a></li>
+            <li><a href="admin/userAdministrationView.php"> Gestion utilisateur </a></li>
             <?php
             }
             ?>

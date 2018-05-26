@@ -1,7 +1,9 @@
 <?php
-include_once ("menu.php");
-include_once ("connection-history/memberConnectionHandling.php");
-include_once ("authentification/authentificationUtils.php");
+    include_once(__DIR__ . '/config.php');
+
+    include_once (APP_ROOT."/menu.php");
+    include_once (APP_ROOT."/connection-history/memberConnectionHandling.php");
+    include_once (APP_ROOT."/authentification/authentificationUtils.php");
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

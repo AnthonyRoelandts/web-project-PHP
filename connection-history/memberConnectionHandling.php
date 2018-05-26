@@ -5,13 +5,14 @@
  * Date: 23/05/2018
  * Time: 21:21
  */
+include_once(__DIR__ . '/../config.php');
+
+include_once (APP_ROOT."/db.php");
 
 function addConnectionEntryInDatabase($membreId) {
     try
     {
-        $bdd = new PDO('mysql:host=localhost;dbname='. $_SERVER["MYSQL_DB"] . ';charset=utf8', $_SERVER["MYSQL_USER"], $_SERVER["MYSQL_PWD"]);
-        $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-
+        $bdd = getDatabase();
         $req = $bdd->prepare('INSERT INTO membre_connections (membre_id, start) VALUES (:membreId, NOW())');
         $req->execute(array(
             'membreId' => $membreId,
@@ -33,9 +34,7 @@ function setEndToConnection() {
 
     try
     {
-        $bdd = new PDO('mysql:host=localhost;dbname='. $_SERVER["MYSQL_DB"] . ';charset=utf8', $_SERVER["MYSQL_USER"], $_SERVER["MYSQL_PWD"]);
-        $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-
+        $bdd = getDatabase();
         $req = $bdd->prepare('UPDATE membre_connections SET end = NOW() WHERE id = :id');
         $req->execute(array(
             'id' => $connectionId
@@ -50,9 +49,7 @@ function setEndToConnection() {
 function getConnectionCountForToday($membreId) {
     try
     {
-        $bdd = new PDO('mysql:host=localhost;dbname='. $_SERVER["MYSQL_DB"] . ';charset=utf8', $_SERVER["MYSQL_USER"], $_SERVER["MYSQL_PWD"]);
-        $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-
+        $bdd = getDatabase();
         $req = $bdd->prepare('SELECT COUNT(*) FROM membre_connections WHERE membre_id = :membre_id AND CAST(start AS DATE) = CAST(NOW() AS DATE)');
         $req->execute(array(
             'membre_id' => $membreId
@@ -70,9 +67,7 @@ function getConnectionCountForToday($membreId) {
 function getConnectionCountForLastWeek($membreId)
 {
     try {
-        $bdd = new PDO('mysql:host=localhost;dbname=' . $_SERVER["MYSQL_DB"] . ';charset=utf8', $_SERVER["MYSQL_USER"], $_SERVER["MYSQL_PWD"]);
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+        $bdd = getDatabase();
         $req = $bdd->prepare('SELECT COUNT(*) FROM membre_connections WHERE membre_id = :membre_id AND CAST(start AS DATE) <= CAST(NOW() AS DATE) AND CAST(start AS DATE) >= DATE_SUB(CAST(NOW() AS DATE), INTERVAL 7 DAY)');
         $req->execute(array(
             'membre_id' => $membreId
