@@ -2,19 +2,13 @@
 include_once(__DIR__ . '/../../config.php');
 
 include_once(APP_ROOT . "/menu.php");
+include_once(APP_ROOT . "/userInput.php");
 include_once(APP_ROOT . "/authentification/authentificationUtils.php");
 include_once(APP_ROOT . "/admin/store/productManager.php");
 
 if (!isAdmin()) {
     redirectToErrorPage();
     exit();
-}
-
-function clean_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
 }
 
 function displayBadInputError($field) {
