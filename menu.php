@@ -14,6 +14,7 @@
     $inscriptionUrl = $prefix . '/inscription.php';
     $loginUrl = $prefix . '/login.php';
     $userAdministrationViewUrl = $prefix . '/admin/userAdministrationView.php';
+    $addProductUrl = $prefix . '/admin/store/addProduct.php';
 ?>
 <body>
 	<div id="menu">
@@ -31,6 +32,7 @@
             }
             if (isAdmin()) {
                 echo "<li><a href=\"$userAdministrationViewUrl\"> Gestion utilisateur</a></li>";
+                echo "<li><a href=\"$addProductUrl\"> Ajouter un produit</a></li>";
             }
             ?>
         </ul>
