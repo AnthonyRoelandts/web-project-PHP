@@ -4,7 +4,7 @@ include_once(__DIR__ . '/../config.php');
 include_once (APP_ROOT . "/menu.php");
 include_once(APP_ROOT . "/admin/connection-history/memberConnectionHandling.php");
 include_once (APP_ROOT . "/authentification/authentificationUtils.php");
-include_once(APP_ROOT . "/admin/memberAccess.php");
+include_once (APP_ROOT . "/admin/userAdministrationController.php");
 
 if(!isAdmin())
 {
@@ -36,7 +36,6 @@ $members = getAllMembers(); // todo: add pagination ?
         <th>Voir profit</th>
         <th>Voir données de connexions</th>
         <th>Voir achats</th>
-        <th>Bloquer/Debloquer</th>
     </tr>
     </thead>
     <tbody>
@@ -44,8 +43,6 @@ $members = getAllMembers(); // todo: add pagination ?
     foreach($members as $element)
     {
         $urlToMemberConnection = 'connection-history/memberConnectionView.php' . '?memberId=' . $element['id'];
-        $urlToMemberBan = 'memberBan.php' . '?memberId=' . $element['id'];
-
         echo '<tr>
 					<td>'.$element['id'].'</td>
 					<td>'.$element['login'].'</td>
@@ -53,7 +50,6 @@ $members = getAllMembers(); // todo: add pagination ?
 					<td><a href="">GO</a></td>
 					<td><a href="' . $urlToMemberConnection . '">GO</a></td>
 					<td><a href="">GO</a></td>
-					<td><a href="' . $urlToMemberBan . '">GO</a></td>
 				</tr>';
     }?>
     </tbody>

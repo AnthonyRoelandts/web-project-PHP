@@ -40,7 +40,7 @@
   try
   {
       $bdd = getDatabase();
-      $sql = "Select id, password, isAdmin, isBanned from membre where login = :login";
+      $sql = "Select id, password, isAdmin from membre where login = :login";
       $req = $bdd->prepare($sql);
       $req->execute(array(
           'login' => $login
@@ -54,9 +54,9 @@
   }
 
   if(!password_verify($_POST['password'], $data['password'])) {
-    echo '<div class="alert alert-dismissable alert-danger">  <strong>Oh Non !</strong> Mauvais login / password. Merci de recommencer !</div>';
-  } else if($data['isBanned']) {
-    echo '<div class="alert alert-dismissable alert-danger">  <strong>Vous avez été banni !</strong></div>';
+    echo '<div class="alert alert-dismissable alert-danger">
+  <strong>Oh Non !</strong> Mauvais login / password. Merci de recommencer !
+</div>';
   } else {
     $_SESSION['login'] = $login;
     $_SESSION['membre_id'] = $data['id'];
