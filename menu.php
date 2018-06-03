@@ -36,11 +36,4 @@
     </div>
 </body>
 <?php
-// on se connecte � MySQL 
-$db = mysqli_connect($_SERVER["MYSQL_HOST"], $_SERVER["MYSQL_USER"], $_SERVER["MYSQL_PWD"],$_SERVER["MYSQL_DB"],$_SERVER["MYSQL_PORT"]);
-
-// Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 ?>

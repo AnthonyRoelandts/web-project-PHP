@@ -1,5 +1,9 @@
 <?php
-include("menu.php");
+include_once(__DIR__ . '/config.php');
+
+include_once(APP_ROOT . "/db.php");
+include_once(APP_ROOT . "/menu.php");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
@@ -92,16 +96,28 @@ if (ISSET($_POST['inscrire'])) {
               </div>';
     } else {
         $login  = $_POST['login'];
-        $sql    = "Select login from membre where login='$login'";
-        $result = $db->query($sql);
-        
-        if ($result->num_rows > 0) {
-            echo '<div class="alert alert-dismissable alert-danger">
+
+        try
+        {
+            $bdd = getDatabase();
+            $sql    = "Select login from membre where login = :login";
+            $req = $bdd->prepare($sql);
+            $req->execute(array(
+                'login' => $login
+            ));
+
+            if ($req->rowCount() > 0) {
+                echo '<div class="alert alert-dismissable alert-danger">
                 Pseudo d&eacute;ja utilis&eacute; !
               </div>';
-            return;
+                return;
+            }
         }
-        
+        catch(Exception $e)
+        {
+            die('Erreur : '.$e->getMessage());
+        }
+
         $file_name = '';
         
         // target directory
@@ -140,12 +156,34 @@ if (ISSET($_POST['inscrire'])) {
         
         $uploaddir  = './uploads/';
         $uploadfile = $uploaddir . basename($_FILES['imageProfil']['name']);
+
+        $imageProfit = null;
         if (!empty($file_name) && move_uploaded_file($_FILES['imageProfil']['tmp_name'], $uploadfile)) {
-            $sql = "INSERT INTO membre(`nom`, `prenom`, `adresse`, `codePostal`, `dateNaissance`, `login`, `password`, `email`, `imageProfil`) VALUES ('" . $nom . "', '" . $prenom . "', '" . $adresse . "', '" . $codePostal . "', '" . $dateNaissance . "', '" . $login . "', '" . $hash . "', '" . $mail . "', '" . $target_dir . $file_name . $extension_upload . "')";
-        } else {
-            $sql = "INSERT INTO membre(`nom`, `prenom`, `adresse`, `codePostal`, `dateNaissance`, `login`, `password`, `email`) VALUES ('" . $nom . "', '" . $prenom . "', '" . $adresse . "', '" . $codePostal . "', '" . $dateNaissance . "', '" . $login . "', '" . $hash . "', '" . $mail . "')";
+            $imageProfit = $target_dir . $file_name . $extension_upload;
         }
-        $req = mysqli_query($db, $sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
+
+        try
+        {
+            $bdd = getDatabase();
+            $sql = "INSERT INTO membre(`nom`, `prenom`, `adresse`, `codePostal`, `dateNaissance`, `login`, `password`, `email`, `imageProfil`) VALUES (:nom, :prenom, :adresse, :codePostal, :dateNaissance, :login, :password, :email, :imageProfil)";
+            $req = $bdd->prepare($sql);
+            $req->execute(array(
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'adresse' => $adresse,
+                'codePostal' => $codePostal,
+                'dateNaissance' => $dateNaissance,
+                'login' => $login,
+                'password' => $hash,
+                'email' => $mail,
+                'imageProfil' => $imageProfit,
+            ));
+        }
+        catch(Exception $e)
+        {
+            die('Erreur : '.$e->getMessage());
+        }
+
         //page de redirection
         echo '<div class="alert alert-dismissable alert-success">
         Vous etes bien inscrit, Redirection dans 5 secondes ! <meta http-equiv="refresh" content="5; URL=login.php">

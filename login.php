@@ -36,10 +36,22 @@
   if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['password'])) {
   extract($_POST);
   // on recup�re le password de la table qui correspond au login du visiteur
-  $sql = "select id, password, isAdmin from membre where login='".$login."'";
-  $req = mysqli_query($db, $sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysqli_error());
+  $data = null;
+  try
+  {
+      $bdd = getDatabase();
+      $sql = "Select id, password, isAdmin from membre where login = :login";
+      $req = $bdd->prepare($sql);
+      $req->execute(array(
+          'login' => $login
+      ));
 
-  $data = mysqli_fetch_assoc($req);
+      $data=$req->fetch();
+  }
+  catch(Exception $e)
+  {
+      die('Erreur : '.$e->getMessage());
+  }
 
   if(!password_verify($_POST['password'], $data['password'])) {
     echo '<div class="alert alert-dismissable alert-danger">
@@ -51,11 +63,26 @@
     $_SESSION['isAdmin'] = $data['isAdmin'];
     addConnectionEntryInDatabase($data['id']);
 
-    $sql = "select imageProfil from membre where login='".$login."'";
-                    $result = $db->query($sql);
+    try
+    {
+      $bdd = getDatabase();
+      $sql = "Select imageProfil from membre where login = :login";
+      $req = $bdd->prepare($sql);
+      $req->execute(array(
+          'login' => $login
+      ));
+
+      $data=$req->fetch();
+    }
+    catch(Exception $e)
+    {
+      die('Erreur : '.$e->getMessage());
+    }
+
+    $image = $data['imageProfil'];
+
     // pas d'image de profil
-    $image = $result->fetch_assoc()['imageProfil'];
-   if ($image == '') { 
+   if (!isset($image)) {
     $_SESSION['imageProfil'] = './uploads/default.jpg';
     } else {
      $_SESSION['imageProfil'] = $image;
