@@ -24,19 +24,6 @@ if(!isAdmin())
 <?php
 $members = getAllMembers(); // todo: add pagination ?
 
-/*
-foreach($members as $element)
-{
-//    print_r($element);
-//    echo '<br />';
-//    echo '<br />';
-
-    echo $element['id'];
-    echo '<br />';
-    echo '<br />';
-}
-*/
-
 ?>
 
 <table border="1">
