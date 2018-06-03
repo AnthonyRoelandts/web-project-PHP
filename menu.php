@@ -4,36 +4,33 @@
     include_once(APP_ROOT . "/admin/connection-history/memberConnectionHandling.php");
     include_once(APP_ROOT."/authentification/authentificationUtils.php");
     session_start();
+
+    $prefix = $_SERVER['CONTEXT_PREFIX'] . '/';
+    $accueilUrl = $prefix . 'accueil.php';
+    $deconnectionUrl = $prefix . 'deconnexion.php';
+    $profilUrl = $prefix . 'profil.php';
+    $inscriptionUrl = $prefix . 'inscription.php';
+    $loginUrl = $prefix . 'login.php';
+    $userAdministrationViewUrl = $prefix . 'admin/userAdministrationView.php';
 ?>
 <body>
 	<div id="menu">
 		<ul id="onglets">
-			<li class="active"><a href="accueil.php"> Accueil </a></li>
 			<?php
-				if (isLogged()) {
-			?>
-            <li><a href="deconnexion.php">Se d&eacute;connecter</a></li>
-            <li><a href="profil.php"> Mon profil </a></li>
-            <?php
-            $image = $_SESSION['imageProfil'];
-            print '<li><img src="' . $image . '" height="42" width="42"/></li>';
+			echo "<li class=\"active\"><a href=\"$accueilUrl\"> Accueil </a></li>";
+            if (isLogged()) {
+                echo "<li><a href=\"$deconnectionUrl\">Se d&eacute;connecter</a></li>";
+                echo "<li><a href=\"$profilUrl\"> Mon profil </a></li>";
+                $image = $prefix . $_SESSION['imageProfil'];
+                print '<li><img src="' . $image . '" height="42" width="42"/></li>';
             } else {
-            ?>
-            <li><a href="inscription.php"> S'inscrire </a></li>
-            <li><a href="login.php"> Se connecter </a></li>
-            <?php
+                echo "<li><a href=\"$inscriptionUrl\"> S'inscrire </a></li>";
+                echo "<li><a href=\"$loginUrl\"> Se connecter </a></li>";
             }
-            ?>
-
-            <?php
             if (isAdmin()) {
-            ?>
-            <li><a href="admin/userAdministrationView.php"> Gestion utilisateur </a></li>
-            <?php
+                echo "<li><a href=\"$userAdministrationViewUrl\"> Gestion utilisateur</a></li>";
             }
             ?>
         </ul>
     </div>
 </body>
-<?php
-?>
