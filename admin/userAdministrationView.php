@@ -33,7 +33,7 @@ $members = getAllMembers(); // todo: add pagination ?
         <th>id</th>
         <th>login</th>
         <th>bloqué</th>
-        <th>Voir profit</th>
+        <th>Voir profil</th>
         <th>Voir données de connexions</th>
         <th>Voir achats</th>
         <th>Bloquer/Debloquer</th>
@@ -45,12 +45,13 @@ $members = getAllMembers(); // todo: add pagination ?
     {
         $urlToMemberConnection = 'connection-history/memberConnectionView.php' . '?memberId=' . $element['id'];
         $urlToMemberBan = 'memberBan.php' . '?memberId=' . $element['id'];
+        $urlToMemberProfil = '../profil.php' . '?memberId=' . $element['id'];
 
         echo '<tr>
 					<td>'.$element['id'].'</td>
 					<td>'.$element['login'].'</td>
 					<td>'. ($element['isBanned'] ? 'oui' : 'non') . '</td>
-					<td><a href="">GO</a></td>
+					<td><a href="' . $urlToMemberProfil . '">GO</a></td>
 					<td><a href="' . $urlToMemberConnection . '">GO</a></td>
 					<td><a href="">GO</a></td>
 					<td><a href="' . $urlToMemberBan . '">GO</a></td>
