@@ -8,7 +8,11 @@
 
 function getPurchaseOfUser($memberId)
 {
-    return array();
+	$query = getDatabase()->prepare("SELECT * FROM orders WHERE membre_id = " .$memberId);
+	$query->execute();
+    $result = $query->fetchAll(\PDO::FETCH_ASSOC);
+	print_r($result);
+	return $result;
 }
 
 ?>

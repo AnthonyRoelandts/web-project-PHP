@@ -4,6 +4,7 @@ include_once(__DIR__ . '/config.php');
 
 include_once(APP_ROOT . "/menu.php");
 include_once(APP_ROOT . "/db.php");
+include_once(APP_ROOT . "/store/purchaseHistoryController.php");
 
 // initializ shopping cart class
 include 'Cart.php';
@@ -59,7 +60,8 @@ $custRow = $query->fetch();
             <td><?php echo $item["qty"]; ?></td>
             <td><?php echo '$'.$item["subtotal"].' USD'; ?></td>
         </tr>
-        <?php } }else{ ?>
+        <?php } getPurchaseOfUser($_SESSION['membre_id']);
+		}else{ ?>
         <tr><td colspan="4"><p>No items in your cart......</p></td>
         <?php } ?>
     </tbody>
