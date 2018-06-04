@@ -20,7 +20,7 @@ if(!isAdmin())
 
 <?php
     $memberId = (int) $_GET["memberId"];
-    if(!isset($memberId) || !is_int($memberId))
+    if(!isset($memberId) || $memberId == 0)
         exit;
 
     $member = getMember($memberId);
