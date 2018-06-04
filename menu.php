@@ -9,6 +9,7 @@
     if($_SERVER['CONTEXT_PREFIX'] == '/')
         $prefix = '';
     $accueilUrl = $prefix . '/accueil.php';
+    $productsUrl = $prefix . '/products.php';
     $deconnectionUrl = $prefix . '/deconnexion.php';
     $profilUrl = $prefix . '/profil.php';
     $inscriptionUrl = $prefix . '/inscription.php';
@@ -22,6 +23,7 @@
 		<ul id="onglets">
 			<?php
 			echo "<li class=\"active\"><a href=\"$accueilUrl\"> Accueil </a></li>";
+			echo "<li><a href=\"$productsUrl\"> Produits </a></li>";
             if (isLogged()) {
                 echo "<li><a href=\"$deconnectionUrl\">Se d&eacute;connecter</a></li>";
                 echo "<li><a href=\"$profilUrl\"> Mon profil </a></li>";
