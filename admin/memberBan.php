@@ -3,6 +3,7 @@ include_once(__DIR__ . '/../config.php');
 
 include_once(APP_ROOT . "/menu.php");
 include_once(APP_ROOT . "/admin/memberAccess.php");
+include_once(APP_ROOT . "/userInput.php");
 
 if(!isAdmin())
 {
@@ -19,7 +20,7 @@ if(!isAdmin())
 <body>
 
 <?php
-    $memberId = (int) $_GET["memberId"];
+    $memberId = (int) clean_input($_GET["memberId"]);
     if(!isset($memberId) || $memberId == 0)
         exit;
 
