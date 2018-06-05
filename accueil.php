@@ -5,6 +5,13 @@
     include_once(APP_ROOT . "/admin/connection-history/memberConnectionHandling.php");
     include_once (APP_ROOT."/authentification/authentificationUtils.php");
 
+function endsWith($haystack, $needle)
+{
+    $length = strlen($needle);
+
+    return $length === 0 ||
+        (substr($haystack, -$length) === $needle);
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
@@ -17,11 +24,16 @@
 
     <link rel="stylesheet" href="projet.css" media="all" type="text/css" /></head>
 <body>
-    <legend>Accueil</legend>
+
 
     <?php
 
-    if (isLogged())
+    $scriptName = $_SERVER['REQUEST_URI'];
+    if(endsWith($scriptName, 'accueil.php')) {
+
+        echo '<legend>Accueil</legend>';
+
+            if (isLogged())
     {
         $image = $_SESSION['imageProfil'];
         echo 'Bienvenue ' . $_SESSION['login'];
@@ -39,6 +51,8 @@
         echo '<pre>';
         echo 'Vous etes admin. La classe!';
     }
+    }
+
 
     ?>
 </body>
