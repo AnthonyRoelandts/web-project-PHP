@@ -79,7 +79,7 @@ if(isset($_POST) && !empty($_POST['texte']) && !empty($_POST['titre'])) {
             throw new Exception("Violation de containt Unique : Changer le Titre du billet ");
         }
 
-        header("Location: /accueil.php");
+        header("Location: ../accueil.php");
 
     } catch (Exception $e) {
         throw ($e);
