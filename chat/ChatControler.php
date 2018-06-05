@@ -10,7 +10,7 @@ class ChatControler{
 
 			if(!empty($_POST)){
 //				ChatModel::setMessage($_POST["message"],$_POST["membre_id"]);
-                ChatModel::setMessage($_POST["message"],1);
+                ChatModel::setMessage($_POST["message"],$_SESSION['membre_id']);
 
             }
 

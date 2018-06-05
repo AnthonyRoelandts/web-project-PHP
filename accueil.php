@@ -40,37 +40,6 @@
         echo 'Vous etes admin. La classe!';
     }
 
-    function chargerClasse($classe){
-
-        if (preg_match("/chat/i",$classe))
-            $racine = 'chat/';
-        else
-            $racine = 'blog/';
-
-        require $racine.''.$classe.'.php' ;// on inclut la classe
-    }
-
-    spl_autoload_register('chargerClasse');
-    if(isset($_GET["page"])){
-        $p = $_GET["page"];
-    }else{
-        $p = 'acceuil';
-    }
-
-    switch ($p){
-
-        case "chat":
-            $controler = new ChatControler();
-            $controler->showMessage();
-            break;
-        case "blog":
-            $controler = new BlogControler();
-            $controler->showBlog();
-            break;
-
-        default :
-            require_once'accueil.php';
-
-    }
     ?>
 </body>
+</html>

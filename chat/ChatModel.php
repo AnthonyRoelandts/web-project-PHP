@@ -26,7 +26,7 @@ class ChatModel
 			$bdd = getDatabase();
 			$req = $bdd->prepare(self::$_query2);
 			$today = date("Y-m-d");
-			$res = $req->execute(array($today,$texte,1) );
+			$res = $req->execute(array($today,$texte,$idUsr) );
 			if(!$res)
 				throw new Exception("le Message na pas ete enregiste");
 				
