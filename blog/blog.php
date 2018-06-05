@@ -60,7 +60,7 @@ while ($donnees = $reponseBil->fetch()) {
 
                                 <div class="media-body">
                                     <h4 class="media-heading"></h4>
-                                    <p><?php echo htmlspecialchars($com["texte_com"]) ?> .</p>
+                                    <p><?php echo htmlspecialchars($com["texte_com"]) ?> </p>
                                 </div>
                             </div>
                         </li>
