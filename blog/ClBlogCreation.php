@@ -30,12 +30,10 @@ include_once (APP_ROOT."/db.php");
 			</div>
 <?php 	}?>
 
-<div class="row banderolCreationBillet" style="margin-bottom:80px">
-	<div class="col-md-12 tchatBoxDroit">
-		Ajouter un nouveau billet :
+	<div>
+		Ajouter un nouveau post :
 	</div>
 	
-</div>
 
 
 <form class="form-horizontal" method="post" action="">
