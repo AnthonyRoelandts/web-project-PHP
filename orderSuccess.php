@@ -14,6 +14,7 @@ if(!isset($_REQUEST['id'])){
 <head>
     <title>Order Success</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="projet.css" media="all" type="text/css" /></head>
     <style>
     .container{width: 100%;padding: 50px;}
     p{color: #34a853;font-size: 18px;}
