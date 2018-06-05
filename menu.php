@@ -19,6 +19,8 @@
     $listProductsUrl = $prefix . '/admin/store/listProduct.php';
     $displayPostUrl= $prefix . '/blog/ClBlogAffichage.php';
     $addPostUrl= $prefix . '/blog/ClBlogCreation.php';
+    $chat= $prefix .'/?page=chat';
+    $blog= $prefix .'/?page=blog';
 
 ?>
 <body>
@@ -27,12 +29,12 @@
 			<?php
 			echo "<li class=\"active\"><a href=\"$accueilUrl\"> Accueil </a></li>";
 			echo "<li><a href=\"$productsUrl\"> Produits </a></li>";
-			echo "<li><a href='http://localhost/?page=blog'>Blog</a></li>";
+			echo "<li><a href=\"$blog\">Blog</a></li>";
 
             if (isLogged()) {
                 echo "<li><a href=\"$deconnectionUrl\">Se d&eacute;connecter</a></li>";
                 echo "<li><a href=\"$profilUrl\"> Mon profil </a></li>";
-                echo "<li><a href='http://localhost/?page=chat'>Chat</a></li>";
+                echo "<li><a href=\"$chat\">Chat</a></li>";
 
                 $image = $prefix . '/' . $_SESSION['imageProfil'];
                 print '<li><img src="' . $image . '" height="42" width="42"/></li>';
