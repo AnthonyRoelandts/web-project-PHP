@@ -17,6 +17,9 @@
     $userAdministrationViewUrl = $prefix . '/admin/userAdministrationView.php';
     $addProductUrl = $prefix . '/admin/store/addProduct.php';
     $listProductsUrl = $prefix . '/admin/store/listProduct.php';
+    $displayPostUrl= $prefix . '/blog/ClBlogAffichage.php';
+    $addPostUrl= $prefix . '/blog/ClBlogCreation.php';
+
 ?>
 <body>
 	<div id="menu">
@@ -33,24 +36,20 @@
                 echo "<li><a href=\"$inscriptionUrl\"> S'inscrire </a></li>";
                 echo "<li><a href=\"$loginUrl\"> Se connecter </a></li>";
             }
+
             if (isAdmin()) {
                 echo "<li><a href=\"$userAdministrationViewUrl\"> Gestion utilisateur</a></li>";
                 echo "<li><a href=\"$addProductUrl\"> Ajouter un produit</a></li>";
                 echo "<li><a href=\"$listProductsUrl\"> Gerer les produits</a></li>";
             }
+
+            echo  "<li><a href=\"$addPostUrl\" class='list-group-item'>Crate Post (admin)</a></li>";
+//            echo  "<li><a href=\"$displayPostUrl\" class='list-group-item'>Display Post (admin)</a></li>";
+
             ?>
             <li><a href="http://localhost/?page=chat">Chat</a></li>
             <li><a href="http://localhost/?page=blog">Blog</a></li>
-<!--            <li>-->
-<!--            <a href="http://localhost/?postCreation" class="list-group-item">-->
-<!--                Crate Post (admin)-->
-<!--            </a>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--            <a href="http://localhost/?postDisplay" class="list-group-item">-->
-<!--                DisplayPost(admin)-->
-<!--            </a>-->
-<!--            </li>-->
+
         </ul>
     </div>
 </body>
