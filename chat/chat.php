@@ -27,8 +27,10 @@
                                 $srcImage = "uploads/default.jpg";
 								
 								//quand membre aura une image
-                              //  if($donnees["chemainImg_membre"] != NULL)
-                               //     $srcImage = $donnees["chemainImg_membre"];
+                                if($donnees["imageProfil"] != NULL) {
+                                    $srcImage = $donnees["imageProfil"];
+                                    $srcImage = substr($srcImage, 2, strlen ($srcImage));
+                                }
                         ?>
                             <tbody>
                               <tr>
