@@ -361,7 +361,7 @@ INSERT INTO `chat` (`id_ch`, `date_ch`, `texte_ch`, `id_membre`) VALUES
 ALTER TABLE `post`
   ADD PRIMARY KEY (`id_bil`),
   ADD UNIQUE KEY `titre_bil` (`titre_bil`),
-  ADD KEY `FK_billet_id_uti` (`id_membre`);
+  ADD KEY `FK_billet_id_membre` (`id_membre`);
 
 
 --
@@ -370,14 +370,14 @@ ALTER TABLE `post`
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id_com`),
   ADD KEY `FK_commentaire_id_bil` (`id_bil`),
-  ADD KEY `FK_commentaire_id_uti` (`id_membre`);
+  ADD KEY `FK_commentaire_id_membre` (`id_membre`);
 
 --
 -- Indexes for table `tchat`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`id_ch`),
-  ADD KEY `FK_tchat_id_uti` (`id_membre`);
+  ADD KEY `FK_tchat_id_membre` (`id_membre`);
 
 --
 -- Constraints for table `post`
@@ -388,9 +388,9 @@ ALTER TABLE `post`
 --
 -- Constraints for table `commentaire`
 --
-ALTER TABLE `comment`
-  ADD CONSTRAINT `FK_comment_id_bil` FOREIGN KEY (`id_bil`) REFERENCES `post` (`id_bil`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_comment_id_membre` FOREIGN KEY (`id_membre`) REFERENCES `membre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+# ALTER TABLE `comment`
+#   ADD CONSTRAINT `FK_comment_id_bil` FOREIGN KEY (`id_bil`) REFERENCES `post` (`id_bil`) ON DELETE CASCADE ON UPDATE CASCADE,
+#   ADD CONSTRAINT `FK_comment_id_membre` FOREIGN KEY (`id_membre`) REFERENCES `membre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `chat`
@@ -398,3 +398,23 @@ ALTER TABLE `comment`
 ALTER TABLE `chat`
   ADD CONSTRAINT `FK_chat_id_membre` FOREIGN KEY (`id_membre`) REFERENCES `membre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+--
+-- AUTO_INCREMENT for table `post`
+--
+ALTER TABLE `post`
+  MODIFY `id_bil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+--
+
+--
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id_com` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id_ch` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;

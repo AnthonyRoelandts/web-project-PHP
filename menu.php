@@ -39,8 +39,18 @@
                 echo "<li><a href=\"$listProductsUrl\"> Gerer les produits</a></li>";
             }
             ?>
-            <li><a href="http://localhost/web-project-PHP/?page=chat">Chat</a></li>
-            <li><a href="http://localhost/web-project-PHP/?page=blog">Blog</a></li>
+            <li><a href="http://localhost/?page=chat">Chat</a></li>
+            <li><a href="http://localhost/?page=blog">Blog</a></li>
+            <li>
+            <a href="http://localhost/?postCreation" class="list-group-item">
+                Crate Post (admin)
+            </a>
+            </li>
+            <li>
+            <a href="http://localhost/?postDisplay" class="list-group-item">
+                DisplayPost(admin)
+            </a>
+            </li>
         </ul>
     </div>
 </body>

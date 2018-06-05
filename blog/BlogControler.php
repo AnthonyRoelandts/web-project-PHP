@@ -10,8 +10,10 @@ class BlogControler{
 
 			if(!empty($_POST)){
 
-				BlogModel::setCommentaire($_POST["commentaire"],$_POST["idBil"],$_POST["membre_id"]);
-			}
+//				BlogModel::setCommentaire($_POST["commentaire"],$_POST["idBil"],$_POST["membre_id"]);
+                BlogModel::setCommentaire($_POST["commentaire"],$_POST["idBil"],1);
+
+            }
 
 			$data = BlogModel::getBilletsCommentaires();
 			extract($data);
