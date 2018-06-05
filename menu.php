@@ -35,9 +35,6 @@
                 echo "<li><a href=\"$deconnectionUrl\">Se d&eacute;connecter</a></li>";
                 echo "<li><a href=\"$profilUrl\"> Mon profil </a></li>";
                 echo "<li><a href=\"$chat\">Chat</a></li>";
-
-                $image = $prefix . '/' . $_SESSION['imageProfil'];
-                print '<li><img src="' . $image . '" height="42" width="42"/></li>';
             } else {
                 echo "<li><a href=\"$inscriptionUrl\"> S'inscrire </a></li>";
                 echo "<li><a href=\"$loginUrl\"> Se connecter </a></li>";
@@ -47,9 +44,14 @@
                 echo "<li><a href=\"$userAdministrationViewUrl\"> Gestion utilisateur</a></li>";
                 echo "<li><a href=\"$addProductUrl\"> Ajouter un produit</a></li>";
                 echo "<li><a href=\"$listProductsUrl\"> Gerer les produits</a></li>";
-                echo  "<li><a href=\"$addPostUrl\" class='list-group-item'>Crate Post</a></li>";
+                echo  "<li><a href=\"$addPostUrl\" class='list-group-item'>Créer Post</a></li>";
             }
 
+
+            if(isLogged()) {
+                $image = $prefix . '/' . $_SESSION['imageProfil'];
+                print '<li><img src="' . $image . '" height="42" width="42"/></li>';
+            }
 //            echo  "<li><a href=\"$displayPostUrl\" class='list-group-item'>Display Post (admin)</a></li>";
             ?>
 
@@ -85,8 +87,6 @@ switch ($p){
         $controler = new BlogControler();
         $controler->showBlog();
         break;
-    default :
-        require_once'accueil.php';
 
 }
 ?>
