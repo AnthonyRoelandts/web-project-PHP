@@ -44,9 +44,12 @@ while ($donnees = $reponseBil->fetch()) {
 
                     if ($donnees["id_bil"] == $com["id_bil"]) {
                         $srcImage = "uploads/default.jpg";
-                        //todo quqnd imqge membre ajoutee
-                        // if($com["chemainImg_uti"] != NULL)
-                        //  $srcImage = $com["chemainImg_uti"];
+
+                        if($com["imageProfil"] != NULL) {
+                            $srcImage = $com["imageProfil"];
+                            $srcImage = substr($srcImage, 2, strlen ($srcImage));
+                        }
+
                         ?>
                         <li class="list-group-item">
                             <!-- Left-aligned media object -->

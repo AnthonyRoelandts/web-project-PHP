@@ -8,7 +8,6 @@ class ChatModel
 	private static $_query2 = "insert into chat(date_ch,texte_ch,id_membre) value(?,?,?)";
 
 	public static function getMessage(){
-		$data;
 		try {
 			$bdd = getDatabase();
 			$data = $bdd->query(self::$_query1);
