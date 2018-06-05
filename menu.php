@@ -39,6 +39,8 @@
                 echo "<li><a href=\"$listProductsUrl\"> Gerer les produits</a></li>";
             }
             ?>
+            <li><a href="http://localhost/web-project-PHP/?page=chat">Chat</a></li>
+            <li><a href="http://localhost/web-project-PHP/?page=blog">Blog</a></li>
         </ul>
     </div>
 </body>
