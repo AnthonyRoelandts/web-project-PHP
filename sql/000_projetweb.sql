@@ -48,7 +48,7 @@ CREATE TABLE `membre` (
 INSERT INTO `membre` (`id`, `login`, `password`, `email`, `adresse`, `nom`, `prenom`, `codePostal`, `dateNaissance`, `imageProfil`) VALUES
 (54, 'a', 'b', 'c', '', '', '', 0, '0000-00-00', NULL),
 (57, 'd', 'q', 's', '', 'dzad', 'ad', 0, '0000-00-00', './uploads/download.jpg'),
-(58, 'test', 'test', 'dorian.scohier@gmail.com', '', '', '', 0, '0000-00-00', './uploads/Plage paradisiaque-1680x1050.jpg');
+(60, 'test', 'test', 'dorian.scohier@gmail.com', '', '', '', 0, '0000-00-00', './uploads/Plage paradisiaque-1680x1050.jpg');
 
 --
 -- Indexes for dumped tables
