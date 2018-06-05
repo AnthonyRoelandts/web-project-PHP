@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2018 at 07:44 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.4
+-- Generation Time: May 11, 2018 at 02:37 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,74 +25,81 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
---
-
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `address` text COLLATE utf8_unicode_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `membre`
 --
 
 CREATE TABLE `membre` (
   `id` int(11) NOT NULL,
   `login` varchar(20) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
   `adresse` varchar(200) DEFAULT NULL,
   `nom` varchar(200) DEFAULT NULL,
   `prenom` varchar(200) DEFAULT NULL,
   `codePostal` int(11) DEFAULT NULL,
   `dateNaissance` date DEFAULT NULL,
-  `imageProfil` text,
-  `isAdmin` tinyint(1) NOT NULL DEFAULT '0',
-  `isBanned` tinyint(1) NOT NULL DEFAULT '0'
+  `imageProfil` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `membre`
 --
 
-INSERT INTO `membre` (`id`, `login`, `password`, `email`, `adresse`, `nom`, `prenom`, `codePostal`, `dateNaissance`, `imageProfil`, `isAdmin`, `isBanned`) VALUES
-(1, 'a', 'b', 'c', '', '', '', 0, '0000-00-00', NULL, 0, 0),
-(2, 'd', 'q', 's', '', 'dzad', 'ad', 0, '0000-00-00', './uploads/download.jpg', 0, 0),
-(3, 'test', 'test', 'dorian.scohier@gmail.com', '', '', '', 0, '0000-00-00', './uploads/Plage paradisiaque-1680x1050.jpg', 0, 0),
-(4, 'admin', '$2y$10$p8STZzS2k8kDq', 'admin@admin.com', '', 'admin', 'admin', 0, '0000-00-00', NULL, 1, 0),
-(5, 'antho', '$2y$10$4N1b382w7UEAqV0PNH02/eLkEreb5Do9/DbH9h64zwZFpzvkoet4G', 'anthonyroelandts@gmail.com', 'Rue Antoine Nys 22/1', 'Anthony', 'Roelandts', 1070, '1992-04-06', './uploads/Classy Ork.jpg', 0, 0);
-
--- --------------------------------------------------------
+INSERT INTO `membre` (`id`, `login`, `password`, `email`, `adresse`, `nom`, `prenom`, `codePostal`, `dateNaissance`, `imageProfil`) VALUES
+  (1, 'a', 'b', 'c', '', '', '', 0, '0000-00-00', NULL),
+  (2, 'd', 'q', 's', '', 'dzad', 'ad', 0, '0000-00-00', './uploads/download.jpg'),
+  (60, 'test', 'test', 'dorian.scohier@gmail.com', '', '', '', 0, '0000-00-00', './uploads/Plage paradisiaque-1680x1050.jpg');
 
 --
--- Table structure for table `membre_connections`
+-- Indexes for dumped tables
 --
 
-CREATE TABLE `membre_connections` (
-  `id` int(11) NOT NULL,
-  `membre_id` int(11) NOT NULL,
-  `start` datetime NOT NULL,
-  `end` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Indexes for table `membre`
+--
+ALTER TABLE `membre`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login` (`login`);
 
 --
--- Dumping data for table `membre_connections`
+-- AUTO_INCREMENT for dumped tables
 --
 
-INSERT INTO `membre_connections` (`id`, `membre_id`, `start`, `end`) VALUES
-(1, 1, '2018-06-02 16:22:45', '2018-06-02 17:15:32'),
-(2, 1, '2018-06-02 17:15:38', NULL);
+--
+-- AUTO_INCREMENT for table `membre`
+--
+ALTER TABLE `membre`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+COMMIT;
 
--- --------------------------------------------------------
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+create table membre_connections
+(
+  id int auto_increment primary key,
+  membre_id int not null,
+  start datetime not null,
+  end datetime null,
+  constraint FK_MEMBRE foreign key (membre_id) references membre (id)
+)
+;
+
+create index FK_MEMBRE
+  on membre_connections (membre_id)
+;
+
+ALTER TABLE `membre` ADD COLUMN `isAdmin` BOOL NOT NULL DEFAULT FALSE;
+
+ALTER TABLE membre MODIFY password varchar(255) NOT NULL;
+
+ALTER TABLE `membre` ADD COLUMN `isBanned` BOOL NOT NULL DEFAULT FALSE;
+
+
+INSERT INTO membre (id, login, password, email, adresse, nom, prenom, codePostal, dateNaissance, isAdmin, isBanned)
+VALUES (62, 'admin', '$2y$10$rByok59OI.KI6WZ3UsPPKepSTsf0PM29WF7q2xiNPBL/TkOJ6fe76', 'admin', 'admin', 'admin', 'admin', 1111, '0001-01-01', 1, 0);
 
 --
 -- Table structure for table `orders`
@@ -100,12 +107,20 @@ INSERT INTO `membre_connections` (`id`, `membre_id`, `start`, `end`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
+  `membre_id` int(11) NOT NULL,
   `total_price` float(10,2) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `membre_id`, `total_price`, `created`, `modified`, `status`) VALUES
+  (11, 60, 20.00, '2018-06-03 21:58:18', '2018-06-03 21:58:18', '1'),
+  (12, 60, 40.00, '2018-06-03 22:33:24', '2018-06-03 22:33:24', '1');
 
 -- --------------------------------------------------------
 
@@ -119,6 +134,14 @@ CREATE TABLE `order_items` (
   `product_id` int(11) NOT NULL,
   `quantity` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`) VALUES
+  (7, 11, 1, 2),
+  (8, 12, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -141,38 +164,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `created`, `modified`, `status`) VALUES
-(1, 'test1', 'Premier article de test', 10.00, '2018-06-02 00:00:00', '2018-06-02 00:00:00', '1');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `customers`
---
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `membre`
---
-ALTER TABLE `membre`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `login` (`login`);
-
---
--- Indexes for table `membre_connections`
---
-ALTER TABLE `membre_connections`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_MEMBRE` (`membre_id`);
+  (1, 'test1', 'Premier article de test', 10.00, '2018-06-02 00:00:00', '2018-06-02 00:00:00', '1');
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`);
+  ADD KEY `customer_id` (`membre_id`);
 
 --
 -- Indexes for table `order_items`
@@ -188,38 +187,16 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `customers`
---
-ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `membre`
---
-ALTER TABLE `membre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
--- AUTO_INCREMENT for table `membre_connections`
---
-ALTER TABLE `membre_connections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -228,20 +205,10 @@ ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Constraints for dumped tables
---
-
---
--- Constraints for table `membre_connections`
---
-ALTER TABLE `membre_connections`
-  ADD CONSTRAINT `FK_MEMBRE` FOREIGN KEY (`membre_id`) REFERENCES `membre` (`id`);
-
---
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `customer_id_fk` FOREIGN KEY (`membre_id`) REFERENCES `membre` (`id`);
 
 --
 -- Constraints for table `order_items`
@@ -249,34 +216,6 @@ ALTER TABLE `orders`
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
--- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1
--- Généré le :  mar. 05 juin 2018 à 08:49
--- Version du serveur :  10.1.26-MariaDB
--- Version de PHP :  7.1.8
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données :  `projetweb2`
---
 
 -- --------------------------------------------------------
 
@@ -286,7 +225,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `post` (
   `id_bil` int(11) NOT NULL,
-  `titre_bil` varchar(25) NOT NULL,
+  `titre_bil` varchar(255) NOT NULL,
   `texte_bil` text NOT NULL,
   `dateCreation_bil` date NOT NULL,
   `id_membre` int(11) NOT NULL
@@ -353,7 +292,7 @@ INSERT INTO `chat` (`id_ch`, `date_ch`, `texte_ch`, `id_membre`) VALUES
   (1, '2017-06-14', 'hello everybody', 1),
   (2, '2017-06-14', 'tell me ?', 2),
   (3, '2017-06-14', 'bonjour, je suis martin', 2),
-  (4, '2017-06-14', 'Bonjour martin', 3);
+  (4, '2017-06-14', 'Bonjour martin', 1);
 
 --
 -- Indexes for table `post`
